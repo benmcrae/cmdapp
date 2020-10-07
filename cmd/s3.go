@@ -14,5 +14,6 @@ var s3Cmd = &cobra.Command{
 func init() {
 	s3Cmd.AddCommand(
 		s3app.S3List(),
+		s3app.S3Get(),
 	)
 }
