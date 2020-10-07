@@ -24,3 +24,25 @@ func (c *Clients) ListS3Buckets() []S3Buckets {
 
 	return buckets
 }
+
+func (c *Clients) GetS3Objects(bucketName string) []S3Object {
+	var s3objects []S3Object
+	results, err := c.s3.ListObjects(&s3.ListObjectsInput{
+		Bucket: aws.String(bucketName),
+	})
+
+	if err != nil {
+		log.Fatal("There was an error retrieving the bucket's objects")
+	}
+
+	for _, o := range results.Contents {
+		s3objects = append(s3objects, S3Object{
+			ObjectName:   aws.StringValue(o.Key),
+			LastModified: aws.TimeValue(o.LastModified),
+			SizeMB:       float32(aws.Int64Value(o.Size) / 1000000),
+			StorageClass: aws.StringValue(o.StorageClass),
+		})
+	}
+
+	return s3objects
+}

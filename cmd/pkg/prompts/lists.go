@@ -1,6 +1,8 @@
 package prompts
 
-import "github.com/manifoldco/promptui"
+import (
+	"github.com/manifoldco/promptui"
+)
 
 func GetListValue(items []string, promptxt string) (string, error) {
 	selectList := promptui.Select{

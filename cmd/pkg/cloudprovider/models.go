@@ -1,6 +1,8 @@
 package cloudprovider
 
 import (
+	"time"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -31,4 +33,11 @@ func NewClients() *Clients {
 
 type S3Buckets struct {
 	BucketName string
+}
+
+type S3Object struct {
+	ObjectName   string
+	SizeMB       float32
+	LastModified time.Time
+	StorageClass string
 }
